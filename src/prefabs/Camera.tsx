@@ -1,12 +1,12 @@
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import {extend, useThree} from "@react-three/fiber";
-import {useEffect, useRef} from "react";
+import {Ref, useEffect, useRef} from "react";
 
 extend({PointerLockControls})
 
 const Camera = () => {
     const {camera, gl} = useThree();
-    const controls = useRef();
+    const controls: Ref<any> = useRef();
 
     useEffect(() => {
         camera.layers.enable(0);

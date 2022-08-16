@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const useKeyboard = (keysToListen = []) => {
+export const useKeyboardInput = (keysToListen = []) => {
     const getKeys = useCallback(() => {
         const lowerCaseArray = [];
-        const hookReturn = new Set<string>();
+        const hookReturn = {};
 
         keysToListen.forEach((key) => {
             const lowerCaseKey = key.toLowerCase();

@@ -18,8 +18,10 @@ const DefaultScene = () => {
 
                 <Plane />
 
-                <mesh>
-                    <boxBufferGeometry args={[0.5, 0.5, 0.5]} />
+                <mesh
+                    position={[-3, 0.25, 1]}
+                >
+                    <boxBufferGeometry args={[1, 1, 1]} />
                     <meshLambertMaterial color={'#000000'} />
                 </mesh>
 
