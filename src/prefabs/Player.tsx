@@ -1,18 +1,19 @@
 import { useSphere } from "@react-three/cannon";
-import React, { useEffect, useRef } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useFrame, useThree} from "@react-three/fiber";
 import { Vector3 } from "three";
-import { useKeyboardInput } from "../hooks/useKeyboardInput";
-import { useMouseInput } from "../hooks/useMouseInput";
-import { useVariable } from "../hooks/useVariable";
+import { useKeyboardInput, useMouseInput, useVariable } from "../hooks";
 import { Raycaster } from "three";
+import {Box} from "./index";
 
 /** Player movement constants */
 const speed = 300;
 const jumpSpeed = 5;
 const jumpCoolDown = 400;
+const blockCooldown = 300;
 
 const Player = () => {
+    const [blocks, setBlocks] = useState([]);
     /** Player collider */
     const [sphereRef, api] = useSphere(() => ({
         mass: 100,
@@ -37,10 +38,10 @@ const Player = () => {
 
     /** Player state */
     const state = useRef({
-        timeToShoot: 0,
+        timeToPutBlock: 0,
         timeTojump: 0,
         vel: [0, 0, 0],
-        jumping: false
+        jumping: false,
     });
 
     useEffect(() => {
@@ -50,7 +51,7 @@ const Player = () => {
     /** Player loop */
     useFrame((_, delta) => {
         /** Handles movement */
-        const { w, s, a, d } = input.current;
+        const { w, s, a, d }: any = input.current;
         const space = input.current[" "];
 
         let velocity = new Vector3(0, 0, 0);
@@ -130,16 +131,31 @@ const Player = () => {
             }
         }
 
-        if (mouseInput.current.left) {
+        const blockPosition = camera.position
+            .clone()
+            .add(cameraDirection.clone().multiplyScalar(2));
 
+        if (mouseInput.current.left) {
+            const now = Date.now();
+            if(now > state.current.timeToPutBlock){
+                state.current.timeToPutBlock = now + blockCooldown;
+                setBlocks((blocks) => [
+                    ...blocks,
+                    {
+                        position: [blockPosition.x, 0.25, blockPosition.z],
+                    }
+                ])
+            }
         }
     });
 
     return (
         <>
-
+            {blocks.map((block) => {
+                return <Box position={block.position} />
+            })}
         </>
     );
-};
+}
 
 export default Player;

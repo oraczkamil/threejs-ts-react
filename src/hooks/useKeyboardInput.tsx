@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const useKeyboardInput = (keysToListen = []) => {
+const useKeyboardInput = (keysToListen: string[] = []) => {
     const getKeys = useCallback(() => {
-        const lowerCaseArray = [];
-        const hookReturn = {};
+        const lowerCaseArray: string[] = [];
+        const hookReturn: HookReturn = {};
 
-        keysToListen.forEach((key) => {
+        keysToListen.forEach((key: string) => {
             const lowerCaseKey = key.toLowerCase();
             lowerCaseArray.push(lowerCaseKey);
             hookReturn[lowerCaseKey] = false;
@@ -20,13 +20,13 @@ export const useKeyboardInput = (keysToListen = []) => {
     const [keysPressed, setPressedKeys] = useState(getKeys().hookReturn);
 
     useEffect(() => {
-        const handleKeyDown = (e) => {
+        const handleKeyDown = (e: KeyboardEvent) => {
             const lowerKey = e.key.toLowerCase();
             if (getKeys().lowerCaseArray.includes(lowerKey)) {
                 setPressedKeys((keysPressed) => ({ ...keysPressed, [lowerKey]: true }));
             }
         };
-        const handleKeyUp = (e) => {
+        const handleKeyUp = (e: KeyboardEvent) => {
             const lowerKey = e.key.toLowerCase();
             if (getKeys().lowerCaseArray.includes(lowerKey)) {
                 setPressedKeys((keysPressed) => ({
@@ -47,3 +47,5 @@ export const useKeyboardInput = (keysToListen = []) => {
 
     return keysPressed;
 };
+
+export default useKeyboardInput;

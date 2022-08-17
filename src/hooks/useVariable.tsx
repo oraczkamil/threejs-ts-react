@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export const useVariable = (state) => {
+const useVariable = (state: object) => {
     const varRef = useRef(state);
 
     useEffect(() => {
@@ -9,3 +9,5 @@ export const useVariable = (state) => {
 
     return varRef;
 };
+
+export default useVariable;

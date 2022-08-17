@@ -1,4 +1,4 @@
-import {Plane, Camera, Player} from "../prefabs";
+import {Plane, Camera, Player, Box} from "../prefabs";
 import {Physics} from "@react-three/cannon";
 
 const DefaultScene = () => {
@@ -9,7 +9,7 @@ const DefaultScene = () => {
             <ambientLight />
 
             <Physics
-                gravity={[0, -9, 0]}
+                gravity={[0, -15, 0]}
                 tolerance={0}
                 iterations={50}
                 broadphase={"SAP"}
@@ -18,12 +18,7 @@ const DefaultScene = () => {
 
                 <Plane />
 
-                <mesh
-                    position={[-3, 0.25, 1]}
-                >
-                    <boxBufferGeometry args={[1, 1, 1]} />
-                    <meshLambertMaterial color={'#000000'} />
-                </mesh>
+                <Box position={[-3, 0.25, 4]}/>
 
             </Physics>
         </>

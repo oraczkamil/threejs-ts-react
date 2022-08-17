@@ -1,12 +1,16 @@
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import {extend, useThree} from "@react-three/fiber";
-import {Ref, useEffect, useRef} from "react";
+import { useEffect, useRef} from "react";
 
 extend({PointerLockControls})
 
+interface Controls {
+    current: any;
+}
+
 const Camera = () => {
     const {camera, gl} = useThree();
-    const controls: Ref<any> = useRef();
+    const controls: Controls = useRef();
 
     useEffect(() => {
         camera.layers.enable(0);
@@ -24,6 +28,7 @@ const Camera = () => {
         };
     }, [gl]);
 
+    // @ts-ignore
     return <pointerLockControls ref={controls} args={[camera, gl.domElement]} />;
 }
 

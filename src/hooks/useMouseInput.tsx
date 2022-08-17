@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
-export const useMouseInput = () => {
+const useMouseInput = () => {
     const [keysPressed, setPressedKeys] = useState({ left: false, right: false });
 
     useEffect(() => {
-        const handleMouseDown = (e) => {
+        const handleMouseDown = (e: MouseEvent) => {
             if (e.button === 1) {
                 setPressedKeys((current) => ({ ...current, right: true }));
             } else if (e.button === 0) {
                 setPressedKeys((current) => ({ ...current, left: true }));
             }
         };
-        const handleMouseUp = (e) => {
+        const handleMouseUp = (e: MouseEvent) => {
             if (e.button === 1) {
                 setPressedKeys((current) => ({ ...current, right: false }));
             } else if (e.button === 0) {
@@ -30,3 +30,5 @@ export const useMouseInput = () => {
 
     return keysPressed;
 };
+
+export default useMouseInput;
