@@ -1,9 +1,21 @@
+import { useBox } from "@react-three/cannon";
+
 const Box = ({position = []}: {position: number[]}) => {
+    const [boxRef] = useBox(() => ({
+        // mass: 1,
+        args: [1, 1, 1],
+        material: {
+            friction: 1,
+            restitution: 0
+        },
+        position: position,
+    }));
+
     return(
         <mesh
-            position={position}
+            ref={boxRef}
         >
-            <boxBufferGeometry args={[1, 1, 1]} />
+            <boxBufferGeometry />
             <meshLambertMaterial color={'#000000'} />
         </mesh>
     )

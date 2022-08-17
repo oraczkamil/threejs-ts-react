@@ -9,7 +9,7 @@ const DefaultScene = () => {
             <ambientLight />
 
             <Physics
-                gravity={[0, -15, 0]}
+                gravity={[0, -13, 0]}
                 tolerance={0}
                 iterations={50}
                 broadphase={"SAP"}

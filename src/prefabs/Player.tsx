@@ -16,7 +16,7 @@ const Player = () => {
     const [blocks, setBlocks] = useState([]);
     /** Player collider */
     const [sphereRef, api] = useSphere(() => ({
-        mass: 100,
+        mass: 200,
         fixedRotation: true,
         position: [0, 0, 0],
         args: [0.2],
@@ -142,7 +142,7 @@ const Player = () => {
                 setBlocks((blocks) => [
                     ...blocks,
                     {
-                        position: [blockPosition.x, 0.25, blockPosition.z],
+                        position: [blockPosition.x, blockPosition.y, blockPosition.z],
                     }
                 ])
             }
